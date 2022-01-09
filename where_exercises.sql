@@ -26,18 +26,18 @@ WHERE last_name LIKE 'E%'
 #6
 SELECT *
 FROM employees 
-WHERE last_name LIKE 'E%' OR last_name LIKE 'E%E'
-# starts or ends with 'E' = 7330 Employees
+WHERE last_name LIKE 'E%' OR last_name LIKE '%E'
+# starts or ends with 'E' = 20723 Employees
 ;
 SELECT *
 FROM employees
-WHERE last_name LIKE '%E' NOT last_name LIKE 'E%E'
-# 24292 employees ends with e
+WHERE last_name LIKE '%E' AND NOT last_name LIKE 'E%'
+# 23393 employees ends with e
 ;
 #7
 SELECT *
 FROM employees 
-WHERE last_name LIKE 'E%' and last_name LIKE 'E%E'
+WHERE last_name LIKE 'E%' and last_name LIKE '%E'
 # 899 employees that has both a E at the beginnning and end. 
 ;
 SELECT *
@@ -49,12 +49,12 @@ WHERE last_name LIKE '%E'
 SELECT *
 FROM employees
 WHERE hire_date BETWEEN '1990-01-01' AND '1999-12-31';
-#134214 employees hired between 1990 and 1999
+#135214 employees hired between 1990 and 1999
 ;
 #9
 SELECT *
 FROM employees
-WHERE birth_date LIKE ('%12-25%')
+WHERE birth_date LIKE ('%-12-25')
 # 842 employees born on 12-25
 ;
 #10
@@ -71,7 +71,8 @@ WHERE last_name LIKE '%q%'
 #1873 employees with a q in their name 
 ;
 #12
-ELECT last_name
+SELECT last_name
 FROM employees
 WHERE last_name LIKE '%q%' 
-	AND != last_name like ('%qu%');
+	AND NOT last_name like ('%qu%');
+# 547 Employees with q but not qu in their last name
