@@ -16,6 +16,8 @@ WHERE hire_date BETWEEN '1990-01-01' AND '1999-12-31'
 
 #5
 
-SELECT emp_no, MIN(salary)
-FROM salaries;
+SELECT MIN(salary), MAX(salary)
+FROM salaries
+
+#6
 
