@@ -33,5 +33,6 @@ HAVING (first_name = ('Irena')
 #8
 SELECT LOWER(CONCAT(LEFT(first_name,(4)),"_", LEFT(last_name, (4)), LEFT(birth_date,(4)))), COUNT(*) AS username
 FROM employees
-GROUP BY first_name, last_name, birth_date;
+GROUP BY first_name, last_name, birth_date
+ORDER BY username DESC;
 
