@@ -31,7 +31,7 @@ HAVING (first_name = ('Irena')
 	OR first_name = ('Maya'));
 	
 #8
-SELECT COUNT(DISTINCT(first_name, last_name, birth_date))  
-FROM employees;
-
+SELECT LOWER(CONCAT(LEFT(first_name,(4)),"_", LEFT(last_name, (4)), LEFT(birth_date,(4)))), COUNT(*) AS username
+FROM employees
+GROUP BY first_name, last_name, birth_date;
 
