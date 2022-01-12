@@ -9,7 +9,7 @@ FROM
 JOIN  using(hire_date)
 ;
 
-#4 
+#4 The total Female current managers are Isamu Legleitner, Karsten Sigstam, Leon DasSarma, Hilary Kambil 
 SELECT first_name, last_name, gender
 FROM employees
 WHERE emp_no IN (
