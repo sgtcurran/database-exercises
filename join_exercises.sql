@@ -79,19 +79,19 @@ JOIN departments AS d
   ON d.dept_no = de.dept_no
 JOIN salaries AS s
 	ON s.emp_no = e.emp_no
-WHERE s.to_date like ('9999-01-01') AND de.to_date LIKE ('9999-%-%')  
+WHERE s.to_date like ('9999-01-01') AND de.to_date LIKE ('9999-%-%') 
 GROUP BY dept_name;
 #8 
 SELECT e.first_name AS first_name, e.last_name AS last_name
 FROM employees AS e
-JOIN dept_emp AS de
-  ON de.emp_no = e.emp_no
-JOIN departments AS d
-  ON d.dept_no = de.dept_no
 JOIN salaries AS s
 	ON s.emp_no = e.emp_no
-WHERE s.to_date like ('9999-01-01') AND de.to_date LIKE ('9999-%-%') 
+JOIN dept_manager AS dm
+	ON dm.dept_name = 
+WHERE s.to_date like ('9999-01-01') AND dm.dept_name LIKE ('Marketing Department') 
 GROUP BY first_name, last_name; 
+
+
 
 
 
