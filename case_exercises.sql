@@ -26,6 +26,20 @@ FROM employees
 GROUP BY birth_date;
  
 #4
-
-
+SELECT 
+	CASE
+		WHEN departments.dept_name IN ('Research', 'Development') THEN 'R&D'
+		WHEN departments.dept_name IN ('Sales', 'Marketing') THEN 'Sales & Marketing'
+		WHEN departments.dept_name IN ('Production', 'Quality Management') THEN 'Prod & QM'
+		WHEN departments.dept_name IN ('Finance', 'Human Resources') THEN 'Finance & HR'
+		WHEN departments.dept_name IN ('Customer Service') THEN 'Customer Service'
+		ELSE departments.dept_name
+	END AS dept_group,
+	AVG(salaries.salary) AS avg_salary
+FROM departments
+JOIN dept_emp USING (dept_no)
+JOIN salaries USING (emp_no)
+WHERE salaries.to_date > NOW() AND dept_emp.to_date > NOW()
+GROUP BY dept_group;
+		
 	
