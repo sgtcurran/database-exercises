@@ -17,7 +17,25 @@ WHERE hire_date BETWEEN '1990-01-01' AND '1999-12-31'
 #5
 
 SELECT MIN(salary), MAX(salary)
-FROM salaries
+FROM salaries;
 
 #6
+SELECT 
+LOWER(
+			CONCAT(
+						SUBSTR(first_name, 1, 1),
+						SUBSTR(last_name, 1, 4),
+						'_',
+						SUBSTR(birth_date, 6, 2),
+						SUBSTR(birth_date, 3, 2)
+			)
+) AS username
+FROM employees; 
+										
+
+					
+
+
+
+
 
