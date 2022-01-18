@@ -38,17 +38,15 @@ JOIN dept_manager AS dm
 	ON dm.emp_no = e.emp_no
 WHERE gender = 'F' AND dm.to_date LIKE ('9999-%-%')
 ;
-#4 needs work
-SELECT t.title AS Title, COUNT(e.emp_no) AS COUNT
-FROM employees AS e, 
-JOIN titles AS t
-	ON t.emp_no = e.emp_no
-JOIN departments AS d
-	ON d.dept_no = de.dept_no
-JOIN dept_emp AS de
-  ON de.emp_no = e.emp_no
-GROUP BY title
-HAVING (dept_name = ('Customer Service') AND to_date = ('9999-01-01')); 
+#4 
+select title, count(*)
+FROM titles AS t
+JOIN dept_emp de USING (emp_no)
+JOIN departments d USING (dept_no)
+WHERE t.to_date like ('9999-%-%') 
+AND de.to_date like ('9999-%-%')
+AND dept_name LIKE 'Customer%'
+group by title;
 #5
 SELECT d.dept_name AS Department_Name, CONCAT(e.first_name, ' ', e.last_name) AS Department_Manager, s.salary AS Salary
 FROM employees AS e
@@ -70,7 +68,7 @@ JOIN departments AS d
   ON d.dept_no = de.dept_no
 WHERE de.to_date LIKE ('9999-%-%')   
 GROUP BY dept_no, depart_name;
-#7  
+#7 Sales has the highest average salary
 SELECT d.dept_name AS dept_name, AVG(s.salary) AS average_salary
 FROM employees AS e
 JOIN dept_emp AS de
@@ -80,18 +78,31 @@ JOIN departments AS d
 JOIN salaries AS s
 	ON s.emp_no = e.emp_no
 WHERE s.to_date like ('9999-01-01') AND de.to_date LIKE ('9999-%-%') 
-GROUP BY dept_name;
-#8 
-SELECT e.first_name AS first_name, e.last_name AS last_name
-FROM employees AS e
-JOIN salaries AS s
-	ON s.emp_no = e.emp_no
-JOIN dept_manager AS dm
-	ON dm.dept_name = 
-WHERE s.to_date like ('9999-01-01') AND dm.dept_name LIKE ('Marketing Department') 
-GROUP BY first_name, last_name; 
+GROUP BY dept_name
+ORDER BY average_salary DESC;
+;
+#8 Akemi Warwick
+select first_name, last_name, salary
+from departments
+join dept_emp using (dept_no)
+join salaries using (emp_no)
+join employees using (emp_no)
+where salaries.to_date LIKE ('9999-01-01')
+and dept_emp.to_date LIKE ('9999-%-%')
+and dept_name LIKE "Marketing"
+order by salary DESC
+limit 1; 
 
-
+#9 Vishwani Minakawa
+select first_name, last_name, salary, dept_name
+from salaries
+join dept_manager using (emp_no)
+join departments using (dept_no)
+join employees using (emp_no)
+where salaries.to_date LIKE ('9999-01-01')
+and dept_manager.to_date LIKE ('9999-%-%')
+order by salary DESC
+limit 1;
 
 
 
